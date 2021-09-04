@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+</head>
+<body>
+	<script type="text/javascript">
+		/**
+		function 함수명(인자1,,인자 2,){
+
+			return "반환값"
+		}
+		**/
+
+		// 함수의 정의
+		function numbering(){
+			document.write("1번 예제" + 1+"</br>");
+		}
+
+		numbering(); // 함수의 호출 , 결과 : 1
+
+
+		function numbering2(){
+			var i = 0;
+			while(i<10){
+				document.write("2번 예제"+i +"</br>");
+				i++;
+			}
+		}
+
+		numbering2();
+
+		// 함수의 출력 -> 반환타입을 가질 수 있다.
+		function get_member1(){
+			return 'jinSoung';
+		}
+
+		function get_member2(){
+			return 'jinSoung two'
+		}
+
+
+		function get_member3(){
+			return 'jinsoung three'
+			return 'jins,,,,.'
+			return 'jinSoung';
+		}
+
+		document.write(get_member1() +"</br>"); // 결과 : jinSoung
+		document.write(get_member2() +"</br>"); // 결과 : jinSoung two
+		document.write(get_member3() +"</br>"); // 결과 : jinsoung three  , 얘는 처음만나는얘를 반환하고 함수종료
+
+
+		// 함수의 입력 
+		function set_member(arg){
+			return document.write(arg);  // arg 파라미터로 받아온 값을 document.write로 반환.
+		}
+
+		set_member("hi"+"</br>"); // 결과 : hi가 찍힘
+		set_member("hello"+"</br>") // 결과 : hello가 찍힘
+
+		function set_member2(arg){
+			return arg * 1000;
+		}
+
+		document.write(set_member2(1) + "</br>"); // 결과 : 1000,  1 * 1000을 return
+		document.write(set_member2(2) + "</br>"); // 결과 : 2000,  2 * 1000을 return
+
+
+		// 여러개의 파라미터 가능
+		function set_member3(arg1, arg2){
+			return arg1 + arg2; // 인자로 받아온 arg1파라미터와 arg2파라미터를 곱한 결과를 반환
+		}
+
+		// 인자는 여러개를 받을 수 있지만, 반환값은 한가지만 가능
+		document.write(set_member3(20,10) + "</br>"); // 결과 : 30, 10 + 20 = 30을 return
+
+
+		// 함수를 정의하는 다른 방법 1
+		// 함수를 정의하는 대입연산자의(=) 우항부분이 anotherFunc에 대입된 것이다.
+		// 이렇게도 함수를 정의해서 사용할 수 있다.
+		anotherFunc = function(arg){
+			i=0;
+			while(i<arg){
+				document.write(i);
+				i++;
+			}
+		}
+
+		document.write(anotherFunc(5)+"</br>"); // 결과 : 01234 
+
+		// 함수를 정의하는 다른 방법 2
+		(function(){
+			i=0;
+			while(i<10){
+				document.write(i); // 결과 : 0123456789
+				i++;
+			}
+		})(); // 함수의 정의부분을 괄호로 묶은 뒤, 함수를 호출하기위한 ()를 뒤에다가 작성해주면 익명함수로 동작하며
+		      // 일회성으로 동작한다. 해당 함수의 재활용이 불가능하다.
+	</script>
+</body>
+</html>
