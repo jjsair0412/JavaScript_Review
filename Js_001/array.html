@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+</head>
+<body>
+	<script type="text/javascript">
+		var member = ["jinsoung", "hi", "hello"]; // 배열을 선언할 때 대괄호를 사용
+		// 배열안의 값을 꺼내올때도 대괄호 사용
+		document.write(member[0] + "</br>"); // 결과 : jinsoung 출력
+		document.write(member[1] + "</br>"); // 결과 : hi 출력
+		document.write(member[2] + "</br>"); // 결과 : hello 출력
+
+		// 함수의 return값으로 배열을 선언해놓으면 여러모로 편하다.
+		function members(){
+			return oneMembers =["hi", "hello", "world"];
+		}
+
+		document.write(members()); // 결과 : hi,hello,world 
+
+		document.write("</br>");
+
+		function membersTwo(){
+			return twoMembers =["hiTwo", "helloTwo", "worldTwo"];
+		}
+
+		var getMembers = membersTwo(); // 요렇게 함수를 변수안에 대입시켜서 아래처럼 꺼내다 쓸 수 있다.
+
+		document.write(getMembers[0] + "</br>"); // 결과 : hiTwo
+		document.write(getMembers[1] + "</br>"); // 결과 : helloTwo
+		document.write(getMembers[2] + "</br>"); // 결과 : worldTwo
+
+
+		// 배열의 사용 ( 반복문 결합 )
+		function membersThree(){
+			return threeMembers =["hiThree", "helloThree", "worldThree"];
+		}
+
+		var getMemberThree = membersThree(); // memberThree 함수를 변수에 담아준다
+
+		for(var i = 0; i<getMemberThree.length; i++){
+			// memberThree 함수 내부의 반환값에있는 threeMembers 배열을 함수의 크기만큼 i를 늘려가면서 찍어준다.
+			document.write(getMemberThree[i]+"</br>");  // 결과 : hiThree </br> helloThree </br> worldThree </br>
+		}
+
+		var arr = [1,2,3,4,5];
+		var arrLength = arr.length; // length를 통해 배열의 길이를 알아낼 수 있다. 자바와동일
+		document.write(arrLength + "</br>"); // 결과 : 5
+
+
+		// 배열 원소의 추가
+		// push
+		var pushli = ['a','b','c','d','e'];
+		pushli.push('f');
+		document.write(pushli+"</br>"); // 결과 : a,b,c,d,e,f
+
+		// concat
+		var concatli = ['a','b','c'];
+		AfterConcatli = concatli.concat(['d','e']); // return값 받아주는 AfterConcatli
+		document.write(AfterConcatli+"</br>"); // 결과 : a,b,c,d,e
+
+		// unshift
+		var unshiftli = ['b','c'];
+		unshiftli.unshift('a');
+		document.write(unshiftli+"</br>"); // 결과 : a,b,c
+
+		// splice
+		var spliceli = ['a','b','c','d'];
+		// index를 1로 주었기 때문에 b를 가르킴
+		// howmany에 값을 0으로 주었기 때문에 아무값도 없어지지 않음
+		// index+howmany 사이에 들어갈 값이 d가 있기 때문에 결과는 a,d,b,c,d
+		spliceli.splice(1,0,'d'); 
+		document.write(spliceli+"</br>"); // 결과 : a,d,b,c,d
+
+		var spliceli2 = ['a','b','c'];
+		// index를 1로 주었기 때문에 b를 가르킴
+		// howmany에 값을 1로 주었기 때문에 1에서부터 1개를 삭제, b 삭제 
+		// index+howmany에 들어갈 값이 x와 y기 때문에 결과는 a,x,y,c
+		spliceli2.splice(1,1,'x','y'); 
+		document.write(spliceli2+"</br>"); // 결과 : a,x,y,c
+
+		// splice의 두가지 기능
+		var spliceli3 = ['a','b','c','d'];
+		// index를 0으로 주었기 때문에 a를 가르킴
+		// howmany를 2로 주었기 때문에 0에서부터 2개를 삭제 , a,b 삭제
+		// 들어갈 값이 h,m이기 때문에 결과는 h,m,c,d
+		
+		document.write(spliceli3.splice(0,2,'h','m')+"</br>"); // 결과 : a,b  
+		// splice를 통해 삭제된 값들을 반환해주기도 한다. 여기선 a,b가 삭제되었기 때문에 a,b 출력
+		
+		document.write(spliceli3+"</br>"); // 결과 : h,m,c,d
+		
+
+		// 배열의 제거 및 정렬
+		// shift
+		var shiftli = ['a','b','c'];
+		shiftli.shift();
+		document.write(shiftli+"</br>"); // 결과 : b,c
+
+		// pop
+		var popli = ['a','b','c'];
+		popli.pop();
+		document.write(popli+"</br>"); // 결과 : a,b
+
+
+		// 정렬
+		// sort 정렬
+		var sortli = ['c','e','a','b','d'];
+		sortli.sort();
+		document.write(sortli+"</br>"); // 결과 : a,b,c,d,e
+
+
+		// reverse 정렬
+		var reverseli = ['a','b','c','d','e'];
+		reverseli.reverse();
+		document.write(reverseli); // 결과 : e,d,c,b,a
+	</script>
+</body>
+</html>
