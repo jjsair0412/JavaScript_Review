@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
+</head>
+<body>
+    <ul id="list">
+        <li>empty</li>
+        <li>empty</li>
+        <li>empty</li>
+        <li>empty</li>
+    </ul>
+    <input id="execute_btn" type="button" value="execute" />
+    <script type="text/javascript">
+        // 제이쿼리에서 모든것은 $로 표현한다.
+        // 그리고 execute_btn의 id값을 가진애를 클릭했을경우 해당 function을 지정한다.
+        // $('#list li') 얘는 id값이 list인 태그의 하위에있는 li태그들을 모두 지목한것이다.
+        // 그후 .text로 coding everybody로 text를 다 바꿔준다.
+     $('#execute_btn').click(function(){
+        $('#list li').text('coding everybody');
+     })
+    </script>
+</body>
+</html>

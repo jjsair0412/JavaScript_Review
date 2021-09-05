@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+</head>
+<body>
+	<script type="text/javascript">
+		// 첫번째 방법
+		var grades = {'jinsong':20,'hello':7}; // 중괄호 사용
+
+		// 두번째 방법
+		var gradesTwo = {}; // 중괄호 사용
+		gradesTwo['hello'] = 30; // 대괄호 사용
+		gradesTwo['hi'] = 50;
+
+		// 세번째 방법
+		var gradesThree = new Object(); // Object객체 초기화
+		gradesThree['three'] = 3; // 대괄호로 사용
+		gradesThree['two'] = 1; 
+
+
+		// 첫번째 접근방법
+		document.write(grades['jinsong']+"</br>"); // 결과 : 20 
+
+		// 두번째 접근방법
+		document.write(gradesTwo.hello + "</br>"); // 결과 : 30
+
+
+
+		// 객체와 반복문
+		var loopObject = {'hi':20, 'loop':10, 'hello':50}; // 객체 생성
+		for(loopObjectKey in loopObject){ // loopObjectKey에 key값 대입
+			document.write("key : "+loopObjectKey+" value : "+loopObject[loopObjectKey]+"</br>");
+		}
+
+
+
+		// 객체지향 프로그래밍 - 객체에 담을수 있는 것들	
+		var objectProg = {
+			// list라는 key와, 해당 list라는 key 안에있는 또다른 객체들(hi, hello, jinsong)
+			'list' : {'hi' : 10, 'hello' : 20, 'jinsong':30},
+			
+			// 객체 내부에 함수도 위치할 수 있다.
+			'show' : function(arg){
+       			 alert("hello world"+arg);
+   			},
+
+   			'showList' : function(){
+   				for(listKey in this.list){ // 이렇게 자기 자신을 가르키는 this키워드도 사용이 가능하다.
+   					document.write("key : "+listKey+" value : "+this.list[listKey]+"</br>");
+   				}
+   			}
+		} // 중괄호가 끝날때까지의 전체는 객체가 된다.
+
+		document.write(objectProg['list']['hi'] +"</br>"); // 결과 : 10 , list라는 key 안에 hi라는 key의 값 접근
+		document.write(objectProg.list.hi +"</br>"); // 결과 : 10 , 위와 동일. 참조연산자를 사용한 방법
+		
+		// 함수의 arg값을 참조하면서 넣어주면 정상출력된다.
+		objectProg.show(1);
+		objectProg['show'](2);
+		objectProg.showList(); 
+		// objectProg.showList()의 결과 : 
+		// key : hi value : 10
+        // key : hello value : 20
+        // key : jinsong value : 30
+	</script>
+
+</body>
+</html>
