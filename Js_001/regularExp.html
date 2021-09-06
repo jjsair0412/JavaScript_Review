@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+</head>
+<body>	
+	<script type="text/javascript">
+		var str = "a"; // 얘는 쌍따옴표 중간에 있는애가 문자열이다 라는것을 표현한것이다.
+
+		// 1. 정규표현식 리터럴 
+		// 여기선 /와 /사이에 들어가있는 a라는애가 찾아야하는 대상이다 라는것을 컴퓨터에게 알려주는거다.
+		// 이것을 pattern이라는 변수에 담으면, 해당 pattern이라는 변수를 통해 찾고자 하는 것 (여기서 a)를 찾을 수 있다.
+		var pattern = /a/;  
+
+		// 2. 정규표현식 객체 생성자
+		// 여기선 new 키워드로 RegExp라는 정규표현식 객체를 만든다.
+		// 그 후 해당 객체의 인자값으로 찾고자하는것을 적어준다. 해당 예제에서는 a를 찾고자 한다. ('a')
+		// 정규표현식 객체를 pattern에다가 대입한다.
+		var secondPattern = new RegExp('a'); 
+
+
+		// 첫번째 작업 - .exec();
+		// abcdef에 아까 pattern으로 저장해두었던 a가 있는지를 확인한 후 있다면
+		// 문자열 a를 값으로 하는 배열을 리턴한다.
+		// 만약 찾고자하는 대상안에 찾고자하는 결과가 없다면 null 반환한다.
+		document.write(pattern.exec('abcdef')+"</br>"); // 반환 결과 : ["a"]
+		document.write(pattern.exec('bjjjj')+"</br>"); // 반환결과 : null
+
+		var thirdPattern = '/a.'; // .은 특별한 기호다. a다음에는 어떤 문자건간에 하나의 문자(.이 한개들어갔으니까)를 추출해 낸다.
+		document.write(pattern.exec('abcdef')+"</br>"); // 반환 결과 : ["ab"]
+
+
+		// 두번째 작업 - .test();
+		// 검색 대상이 되는 문자열에서, 찾는 문자가 존재하는지를 확인하고 boolean 반환
+		document.write(pattern.test('bacde')+"</br>"); // 결과 : true
+		document.write(pattern.test('bcde')+"</br>"); // 결과 : false
+
+		// 문자열에서 메서드를 찾는 방법
+		var thirdPattern = /a/;
+		var str = 'abcdef';
+
+		// 대상에 있으면 배열로 반환하고, 대상에 없다면 null 반환
+		str.match(thirdPattern); // 반환결과 : ["a"]
+
+
+		// 세번째 작업
+		var str = 'abcdeff';
+		// 문자열.replace(패턴,"바꿀 문자") 이렇게 넣어주면 패턴인 a를 찾아서 바꿀 문자로 변경시켜준다.
+		document.write(str.replace(thirdPattern,"A")+"</br>"); // 반환결과 : "Abcdeff"
+
+
+		//옵션
+		var xi = /a/;
+		document.write("ABCDE".match(xi)+"</br>"); // 결과 : null
+
+		var oi = /a/i; // i옵션을 붙여줌
+		document.write("ABCDE".match(oi)+"</br>"); // 결과 : ["A"]
+
+		var xg = /a/;
+		document.write("abcdea".match(xg)+"</br>"); // 결과 : ["a"] // 대상에는 a가 두개있는데 하나만 검출된다.
+
+		var og = /a/g;
+		document.write("abcdea".match(og)+"</br>"); // 결과 : ["a","a"] // g옵션을 통해 둘다 검출된다.
+
+		var oog = /a/ig; // 이렇게 여러 옵션들을 합쳐서 사용할 수 도 있다.
+		document.write("AaBCDA".match(og)+"</br>");
+
+		//캡처
+		var pattern = /(\w+)\s(\w+)/;
+		var str = "jinsong hi";
+		// 문자열에 담긴 값을 치환하는 replace. 패턴에 해당하는 문자를 뒤에있는 값으로 치환한다. 
+		// $라는 기호는 특수한 의미를 갖는다.
+		// $2라는것은 해당 패턴에서 두번째 등장하는 괄호를 의미한다.
+		// 그니까 $2는 뒤에 문자를 의미한다.
+		// $1은 해당 패턴에서 첫번째 등장하는 괄호를 의미한다.
+		// 그니까 $1은 앞에 문자를 의미한다.
+		// 그리고 중간 공백은 ,공백 으로 변경된다.
+		// 따라서 result는 hi, jinsong으로 변화하게 된다.
+		var result = str.replace(pattern, "$2, $1"); 
+		document.write(result+"</br>"); // 결과 : hi, jinsong
+
+
+		//치환
+		var urlPattern = /\b(?:https?):\/\/[a-z0-9-+&@#\/%?=~_|!:,.;]*/gim;
+		var content = '내블로그 : https://blog.naver.com/jjsair0412 입니다. 네이버 : http://naver.com 입니다. ';
+
+		
+		var result = content.replace(urlPattern, function(url){ 
+		// 첫번째 인자 : 패턴, 두번째 인자 : 함수(url)
+    	// url을 찾을때 마다 두번째 인자로 전달된 함수가 replace내부에서 호출되어 호출된 시점에서 검색된 문자열을 
+    	// 첫번째 인자로 받아온 후 태그안에 url을 넣어서 반환해준다.
+    		return '<a href="'+url+'">'+url+'</a>';
+		});
+		
+		console.log(result);
+	</script>
+</body>
+</html>
