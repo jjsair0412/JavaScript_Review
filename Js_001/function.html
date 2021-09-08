@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+</head>
+<body>
+	<script type="text/javascript">
+		var vscope = 'global'; // 전역변수
+		function fscope(){
+
+			var vscope = 'local'; 
+			alert(vscope);
+			// 첫번째로는 같은 함수안에있는 변수를 찾는다.(지역변수) 없다면
+			// 함수 바깥쪽에 잇는 변수를 찾는다. (전역변수)
+		}
+
+		function fscope2(){
+			alert(vscope);
+		}
+
+		// fscope(); // 결과 : local
+		// fscope2(); // 결과 : Global
+		// fscope 내부의 vscope에 var을 작성해주지 않는다면 전역변수를 의미하기때문에
+		// fscope2의 결과가 local이 나오게 된다.
+
+		//--------------------------var의 사용--------// 
+		// 첫번째 예제
+		function a (){
+			var i = 0;
+		}
+		for (var i = 0; i < 5; i++){
+			a();
+			document.write(i); // 결과 : 01234
+		}
+
+		// 두번째 예제
+		// function a (){
+		// 	i = 0;
+		// }
+		// for (var i = 0; i < 5; i++){
+		// 	a();
+		// 	document.write(i); // 결과 : 무한루프
+		// }
+
+		//----------------------------전역변수의 좋은 사용법-------// 
+		// 전역변수를 사용할때
+		MYAPP = {}
+		MYAPP.calculator = {
+    		'left' : null, // 해당 left와 right는 계산할때 좌항과 우항을 의미한다.
+    		'right' : null
+		}
+		MYAPP.coordinate = {
+    		'left' : null, // 왼쪽과 오른쪽 위치를 의미
+    		'right' : null
+		}
+ 
+		MYAPP.calculator.left = 10;
+		MYAPP.calculator.right = 20;
+
+		function sum(){
+    	return MYAPP.calculator.left + MYAPP.calculator.right;
+		}
+
+		document.write(sum());
+		// 해당 코드의 취지는 MYAPP이라는 전역변수 하나만 정의한다.
+		// 그 후 프로그램을 작성할때 전역변수를 사용하고 싶을때 MYAPP이라는 전역변수 객체 내부에다가 넣어주는거다
+		// 그렇게하면 유지보수를 진행할 때, 전역변수의 이름때문에 충돌할 확률이 현저하게 낮아지게 된다.
+
+
+		// 단 하나의 전역변수도 허용하고싶지 않다면
+		// 아래의 예처럼 익명함수를 사용해서 전역변수를 아예 안쓰는 방법도 고려해볼 수 있다.
+		(function(){
+   		var MYAPP = {}
+    	MYAPP.calculator = {
+        	'left' : null,
+        	'right' : null
+    	}
+    	MYAPP.coordinate = {
+        	'left' : null,
+        	'right' : null
+    	}
+    	MYAPP.calculator.left = 10;
+    	MYAPP.calculator.right = 20;
+    	function sum(){
+        	return MYAPP.calculator.left + MYAPP.calculator.right;
+    	}
+    	document.write(sum());
+		}()
+		)
+		//----------------------------정적 유효범위-------// 
+		var i = 5; // 전역변수
+ 
+		function a(){
+    		var i = 10; // 지역변수
+    		b(); // b함수 호출
+		}
+ 
+		function b(){
+    		document.write(i); // i 출력
+    		// 이때 b함수안에 i라는 지역변수가 존재하는지를 첫번째로 찾는다
+    		// 없기때문에 i라는 전역변수가 존재하는지 찾는다
+    		// a라는 함수가 갖고잇는 지역번수 10에 접근하게 되는 것일까?
+    		// 아니면 b함수가 정의된 시점에서 전역번수 i = 5를 접근하게 되는 것일까?
+    		// 두번째 i=5가 출력되게 된다.
+
+    		// 왜냐하면 b가선언된 시점에서 i의 전역변수가 사용되는 것이지 b가 호출되었을 때, 
+    		// 그니까 a함수 내부의 지역번수가 호출되는것이 아니다.
+
+    		// 사용될때가 아니고, 정의될때의 변수를 찾아간다.
+		}
+ 
+		a(); // a함수 호출
+	</script>
+
+</body>
+</html>
