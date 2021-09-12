@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+</head>
+<body>
+	<script type="text/javascript">	
+		function func(){
+			document.write("hello"+"</br>");
+		}
+
+		func();
+		window.func();
+		// 둘다 잘 동작한다.
+		// 사실 모든 프로퍼티는 window라는 전역객체의 프로퍼티다.
+		// 객체를 명시하지 않는다면 window 전역객체의 프로퍼티로 간주한다.
+
+		var o = {
+			'func' : function(){
+				document.write('hi'+"</br>");
+			}
+		}	
+		o.func();
+		window.o.func();
+		// 얘도 잘 동작한다.
+		// 모든 객체도 window라는 전역객체의 프로퍼티이다.
+		// node.js에서는 window가아니라 global이다.
+	</script>
+</body>
+</html>

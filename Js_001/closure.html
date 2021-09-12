@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+</head>
+<body>
+	<script type="text/javascript">
+		// 외부함수와 내부함수 ?
+		function outter(){ // 외부함수
+			
+			function inner(){ // 내부함수
+				var title = 'coding everybody'
+				document.write(title+"</br>")
+
+			}
+
+			inner(); 
+
+		}
+		outter(); // 결과 : coding everybody 출력
+
+		// 내부함수는 외부함수의 지역변수에 접근할 수 있다.
+		function outter2(){ // 외부함수
+			var title2 = 'coding everybody'
+			function inner(){ // 내부함수
+			
+				document.write(title2+"</br>")
+
+			}
+
+			inner(); 
+
+		}
+		outter2(); // 결과 : coding everybody 출력
+
+		//--------------------------------------------
+		// 클로저의 개념
+		function outter3(){
+			var title3 = 'hi jinsong' // 외부함수의 지역변수
+			return function(){ // 함수 반환
+				document.write(title3+"</br>") // 접근가능
+			} 
+
+		}
+		var innerEx = outter3();
+		innerEx(); // innerEx 변수에 담긴 함수 호출
+		// 결과 : hi jinsong 출력
+
+		// 클로저의 두번째 예시
+		// title변수는 private 변수가 된다.
+		function factory_movie(title){
+			return { // return 객체
+				get_title : function (){ // get_title 메서드
+					return title;
+				},
+				set_title : function(_title){ // set_title 메서드
+					title = _title
+				}
+			}
+		}
+
+		var movie = factory_movie();
+		movie.set_title("영화1번");
+		var oneMovie =movie.get_title();
+
+		document.write(oneMovie+"</br>");
+
+		ghost = factory_movie('Ghost in the shell'); // ghost와 matrix는 다른 메모리
+		matrix = factory_movie('matrix'); // factory_movie의 생명주기는 여기서 마감한다.
+
+		document.write(ghost.get_title()+"</br>"); // 클로저의 개념으로 title 접근 , 결과 : Ghost in the shell
+		document.write(matrix.get_title()+"</br>"); // 클로저의 개념으로 title 접근, 결과 : matrix
+		
+		ghost.set_title('공각기동대') // ghost객체가 접근하는 title값을 변경한다.
+		document.write(ghost.get_title()+"</br>"); // 클로저의 개념으로 title 접근, 결과 : 공각기동대
+		document.write(matrix.get_title()+"</br>"); // 클로저의 개념으로 title 접근, 결과 : matrix
+
+		// 클로저 응용 - 문제있는 코드
+		// 원하는 결과 : 01234
+		var arr = []
+		for (var i = 0; i<5; i++){ // i는 전역변수이다. for문을 돌면서 계속변화함
+			arr[i] = function(){
+				return i; // 전역변수인 i를 그냥 arr[i]에 리턴해준다.
+			}
+		}
+		for (var index in arr){
+			document.write(arr[index]()+"</br>"); // 결과 : 5</br>5</br>5</br>5</br>5</br>
+		}
+
+		// 위에 코드는 지역변수와 전역변수를 혼동한 나머지 , 
+		// 전역변수인 i를 그냥 반환해서 arr[0~5]에 i의 마지막 값인 5가 들어가는 예이다.
+		// 이런 코드를 원래 기대했던 01234로 고치고 싶을때 이럴떄 클로저를 사용하는거다.
+		// 전역변수인 i를 지역변수로 고쳐서 값을 지키고 싶을때.
+
+		var arr = []
+		for(var i = 0; i<5; i++){
+			arr[i] = function(id){ // 외부함수 function의 지역변수인 id
+				return function(){ // 외부함수의 지역변수 id는 오직 내부함수에서만 접근이 가능하다. 
+					               // 따라서 for문을 돌면서 증가하는 값을 유지시킬수 있다.
+					return id; // id 반환
+				}
+
+			}(i) // 외부함수의 인자값을 i로 둠 . for문을 돌면서 외부함수 function에 i에 for문 내부 전역변수 i값이 들어옴.( 0 ~ 4)
+		}
+		for (var index in arr){
+			document.write(arr[index]()+"</br>"); // 결과 : 0</br>1</br>2</br>3</br>4</br>
+		}
+
+	</script>
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+</head>
+<body>
+	<script type="text/javascript">
+		// apply소개
+		function func(){ // func 객체
+
+		}
+		func(); // 기본적인 함수 호출 방법
+
+		function sum(arg1, arg2){
+			return arg1+arg2;
+		}
+
+		document.write(sum(1,2)+"</br>"); // 인자값을 포함한 기본적인 함수 호출. 결과 : 3
+        document.write(sum.apply(null, [1,2])+"</br>"); // 결과 : 3, 
+                                                // apply메소드를 따로 만들어주지 않더라도 자바스크립트가 기본적으로 함수 안에 내장시켜준다.
+                                                
+
+
+        // apply의 쓰임세
+        o1 = {val1:1, val2:2, val3:3}
+        o2 = {v1:10, v2:50, v3:100, v4:25}
+
+        function sum2(){
+        	var _sum = 0;
+        	for(name in this){ //this 객체에 담겨있는 값을 하나씩 꺼내서
+        		_sum += this[name]; // _sum 지역변수에 하나씩 더해주고
+        	}
+        	return _sum; // _sum을 return해준다. . this함수는 함수가 정의될때는 정의되지 않다가 , 호출할때 정의된다.
+        }
+
+		document.write(sum2.apply(o1)+"</br>"); // apply에 o1 객체를 인자로 넣어준다. 결과 : 6
+		document.write(sum2.apply(o2)+"</br>"); // apply에 o2 객체를 인자로 넣어준다. 결과 : 185
+	</script>
+
+</body>
+</html>

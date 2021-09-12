@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+</head>
+<body>
+	<script type="text/javascript">
+		// arguments의 소개
+		function sum(){ // 매개변수가 없는 함수.
+			var i, _sum = 0; // 변수 초기화 
+			for(i =0; i<arguments.length; i++){ // arguments라는것을 활용해서 sum()함수에 들어온 인자들의 갯수를 가져온다. 
+				document.write(i+' : '+arguments[i]+'</br>'); // arguments는 배열처럼 사용된다. 들어온 인자의 1,2,3,4가 순서대로 들어간다.
+															  // 그니까 index 0,1,2,3으로 들어온 인자값인 1,2,3,4가 순서대로 있다.
+															  // 요걸 배열처럼 꺼내다 사용할 수 있다.
+				_sum += arguments[i]; // _sum에는 1+2+3+4 가 된다.
+			}
+			return _sum; // 10을 반환 ( 1+2+3+4 )
+		}
+		document.write('result : '+sum(1,2,3,4)); // 함수에 매개변수를 정의하지 않거나, 
+		                                          // 갯수가 다르다고 하더라도 인자의 갯수를 맘대로 넣어도 된다. 이건 js만의 특징이다.
+
+		// 인자값의 길이와 매개변수의 길이 차이
+		function zero(){
+			console.log{
+				'zero.length',zero.length,
+				'arguments.length',arguments.length
+			};
+		}
+	    zero(); // 결과 : zero.length 0 arguments 0 , 인자값 매개변수 둘다 0개
+	
+		function one(arg1){ // 선언해놓은 매개변수는 한개
+   			 console.log(
+       			'one.length', one.length,
+        		'arguments', arguments.length
+    		);
+		}
+		one('val1', 'val2');  // 결과 : one.length 1 arguments 2 ,함수로 넘겨주는 인자값은 두개
+	
+		function two(arg1, arg2){ // 선언해놓은 매개변수는 두개
+    		console.log(
+        		'two.length', two.length,
+        		'arguments', arguments.length
+    		);
+		}
+		two('val1');  // 결과 : two.length 2 arguments 1 , 함수로 넘겨주는 인자값은 한개
+	
+	</script>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+</head>
+<body>
+	<script type="text/javascript">
+		// 1. 메소드에서의 this
+
+		// this는 자바스크립트 함수 내부에서 사용할 수 있는 변수이다.
+		// this는 함수 안에서 함수호출 맥락을 의미한다.
+		// 맥락이라는 것은 상황에 따라서 달라진다는 의미인데 
+		// 즉 함수를 어떻게 호출하느냐에 따라서 this가 가리키는 대상이 달라진다는 뜻이다.
+		function func(){
+			if(window === this){ // 전역객체인 window와 this키워드가 정확하게 같느냐를 판단한다.
+				document.write("window === this"+"</br>");
+			} 
+		}	
+
+		func(); // 결과 : window === this
+		// 해당 결과를 보면, 함수 내부의 this값은 바로 전역객체를 나타낸다.
+
+		var o = {
+			func : function(){
+				if(o===this){ // 프로퍼티 func내부에서의 this는 o 객체와 정확하게 같느냐를 판단한다.
+					document.write("o===this"+"</br>");
+				}
+			}
+		}
+
+		o(); // 결과 : o===this
+
+		// 이 둘의 예제 결과를 조합해보면, 같은 결과라는것을 알 수 있다.
+		// this는, 해당 함수가 속한, 그니까 자신이 속한 객체를 가르킨다는것을 알 수 있다.
+		// 첫번째 예제에서는 func함수는 사실 window라는 전역객체에 포함되어 있는것이고.
+		// o 객체에서 func함수는 o 객체에 포함되어 있는것이기 때문이다.
+
+
+		// 2. 생성자에서 this의 의미
+		// 애도 메소드에서의 this와 같은 맥락이다.
+		// 자신이속한것을 가르킨다.
+		
+
+	</script>
+</body>
+</html>

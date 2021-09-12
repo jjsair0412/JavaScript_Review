@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+</head>
+<body>
+	<script type="text/javascript">
+		// 객체지향 프로그래밍
+		var person ={}
+		person.name='egoing';
+		person.introduce = function(){
+			return 'My name is '+this.name; // person 객체 내부의 name을 가르킨다.
+		}
+		document.write(person.introduce()+"</br>");
+		// 그런데 위의 코드는 객체를 정의하는 부분과 객체에 값을 넣어주는 부분이 따로 분리되어 있다.
+		// 따라서 중간에 어떤 코드가 중간에 끼어들 위험도 있고, 가독성도 좋지 않다.
+		// 참조연산자로 다른곳에서 객체내부에 값을 넣어주고있기 때문이다.
+		// 따라서 객체를 정의하고 프로퍼티와 메서드를 넣어줄때는 아래처럼 작성한다.
+		var person= {
+			name : 'jinsong',
+			introduce : function(){
+				return 'My Name is '+this.name;
+			}
+		}
+		document.write(person.introduce()+"</br>");
+
+		var person2= {
+			name : 'jinsong2',
+			introduce : function(){
+				return 'My Name is '+this.name;
+			}
+		}
+		// 이렇게 여러개의 객체를 정의할 수 있는데, 이때 introduce라는 메서드가 중복된다.
+		// 이런식으로 객체를 정의하면, 같은코드를 계속 반복해서 작성해야하는 멍청한 작업을 진행해야 한다.
+		// 또한 유지 / 보수 차원에서도 굉장이 단점이 크다.
+		// 예를 들어 만약 introduce라는 메서드가 요구사항이 변함에 따라 로직이 변경되어야 한다면
+		// 같은코드를 반복해서 변경해야 할 것이다.
+		// 따라서 new 키워드를 사용한다.
+
+
+		// 생성자 (constructor)는 객체를 만드는 역할을 한다.
+		// js에서 함수는 , 재사용 가능한 로직의 묶음이 아니라 객체를 만드는 창조자라고 할 수 있다.
+		function Person(){};
+		var p = new Person();
+		// js에서 함수를 호출할 때, 위처럼 new 키워드를 사용해서 함수를 호출한다면
+		// p에 비어있는 person 객체가 들어간다.
+		// 그니까 함수앞에 new키워드를 붙여준다면 비어있는 객체를 리턴해준다.
+
+		function newPerson(name){ // newPerson 안에선 초기화작업을 진행한다.
+			this.name = name; 
+			this.introduce = function () {
+				return 'My Name is new '+this.name
+			}
+		}
+
+		var p1 = new newPerson('jin');
+		document.write(p1.introduce()+"</br>");
+
+		var p2 = new newPerson('lazy');
+		document.write(p2.introduce()+"</br>");
+
+		// new 키워드를 사용해서 p1변수의 객체, p2라는 객체를 따로따로 선언해줫다.
+		// 그러면 p1과 p2는 다른 메모리이기 때문에
+		// 각각 저장되어잇는 name을 출력해준다.
+		// 그러면 중복되는 코드를없앨 수 있다.
+	</script>
+</body>
+</html>
