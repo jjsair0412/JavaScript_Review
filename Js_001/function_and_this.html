@@ -40,8 +40,51 @@
 		// 2. 생성자에서 this의 의미
 		// 애도 메소드에서의 this와 같은 맥락이다.
 		// 자신이속한것을 가르킨다.
-		
 
+		var funcThis = null;
+
+		function Func(){
+			funcThis = this;
+		}
+
+		var o1 = Func(); // 객체로 호출하게 된다면, this는 window를 가르키게 된다.
+		if(funcThis === window){
+			document.write('window' +"</br>");
+		}
+
+		var o2 = new Func(); // 생성자 (new)로 호출하게 된다면, this는 해당 메서드의 객체를 가르킨다.
+		if(funcThis === o2){
+			document.write('o2' +"</br>");
+		}
+
+
+		// 3. apply와 this
+		// 함수의 메소드인 apply와 call을 이용한다면, this의 값을 제어할 수 있다.
+		var o ={}
+		var p ={}
+		function func(){
+			switch(this){
+				case o:
+					document.write('o' +"</br>");
+					break;
+				case p:
+					document.write('p'+"</br>");
+					break;
+				case window;
+					document.write('window'+"</br>");
+					break;
+			}
+		}
+
+		func(); // 여기선 this가 window를 가르키고 잇기 때문에 case window가 출력
+		func.apply(o); // apply를 통해 첫번째 인자로 o를 주게 되면, func함수안에서 this의 값이 첫번째 인자로 지정한 o 객체가 된다.
+		               // 따라서 case o가 실행된다.
+		func.apply(p); // 위와같이 this의 값이 p로 변경되고, case p:가 실행된다.
+		// 따라서 함수는 apply를 통해 자신이 위치한 객체를 변경시킬 수 있다.
+		// apply(o)를 주었을땐, func함수가 속한 객체가 o로 변화하고
+		// apply(p)를 주었을땐, func함수가 속한 객체가 p로 변화한다.
+		// 함수도 객체이기 때문에 매우 자유자제로 움직일 수 있다.
+		// 자바스크립트는 굉장히 유연하다.
 	</script>
 </body>
 </html>
