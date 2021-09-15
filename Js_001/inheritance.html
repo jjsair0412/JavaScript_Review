@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+</head>
+<body>
+	<script type="text/javascript">	
+		// 기존 함수
+		function Person(name){
+			this.name = name;
+			this.introduce = function(){
+				return 'My Name is '+this.name;
+			}
+
+		}
+		var p1 = new Person('jinsong');
+		document.write(p1.introduce()+"<br />"); // 결과 : My Name is jinsong
+
+
+		// 상속을 사용하는 부분
+		function Person2(name){
+			this.name = name;
+		}
+		Person2.prototype.name = null; // Person2 생성자에 prototype이라는 프로퍼티가 있는데, 거기엔 name이라는 객체가 있다.
+		Person2.prototype.introduce = function(){ // Person2 생성자에 prototype이라는 프로퍼티를 사용해서, introduce라는 함수를 생성자 밖에서 선언해주어 사용할 수 있다
+			return 'My Name is ' + this.name;
+		}
+		var p2 = new Person2('jinsong');
+		document.write(p2.introduce()+"</br>"); // 결과 : My Name is jinsong
+
+
+		function Programmer(name){
+			this.name = name;
+		}
+		
+		Programmer.prototype = new Person2(); // 이부분에서 상속이 진행된다. prototype이라는 특별한 프로퍼티를 참조한다. 
+
+		// 상속 진행과정
+		// 자바스크립트에서 객체를 생성해줄때 , (new Person2())
+		// prototype이라고하는 속성을 생성자함수가 가지고 있는지를 확인한다.
+		// 그리고 생성자 함수안에 들어있는 객체와 똑같은 객체를 만들어 생성자결과로 반환해준다.
+		// 따라서 위쪽 Person2.prototype.name과 , Person2.prototype.introduce라고하는 메서드를 갖고잇는 객체가
+		// prototype안에 들어가잇기 때문에, new Person2에서 저 둘을 반환해주는것이다.
+		// 그후 Programmer의 prototype을 통해 name과 introduce를 똑같이 복제해서 갖고있게끔 되게 한다.
+
+		var p3 = new Programmer('jinsoung');
+		document.write(p3.introduce()+"</br>"); // 결과 : My Name is jinsoung
+
+		// 결론적으로 자바스크립트에서 상속을 사용하고 싶다면, prototype을 통해서 사용하면 된다.
+		// 지금까지의 방법은 객체가 기능을 물려받는것에서 그쳤다.
+		// 이후부터 물려받는것에 그치지 않고, 기능을 추가해보겠다.
+
+		// 상속 - 기능의 추가
+		function Person3(name){
+			this.name = name;
+		}
+		Person3.prototype.name = null;
+		Person3.prototype.introduce = function(){
+			return 'My Name is ' + this.name;
+		}
+
+		function Programmer2(name){
+			this.name = name;
+		}
+
+		Programmer2.prototype = new Person3();
+		Programmer2.prototype.coding = function(){
+   			 return "hello world";
+		}
+
+
+		var p4 = new Programmer2('jinsong');
+		document.write(p4.introduce()+"</br>"); // 결과 : My Name is jinsong
+		document.write(p4.coding()+"</br>"); // 결과 : hello world
+
+		// 위의 코드에서는, 모든 사람은 이름을 가질 수 잇겠지만, 모든사람이 프로그래머는 아니다.
+		// 따라서 사람은 이름을 소개하는 메서드를 가지고있고 (introduce)
+		// 프로그래머는 이름을 소개하고 (introduce) 코딩하는 hello world도 가지고 있다 (coding)
+
+		// 위처럼 상속받은 부모객체의 메서드를 사용하게끔 prototype을 활용해 부모객체를 만든 후,
+		// 자신에게 필요한 메서드를 추가해 사용할 수 있다.
+
+
+		// prototype이란 ? 
+		function Ultra(){}
+		Ultra.prototype.ultraProp = true; // Ultra의 객체 원형 prototype에 ultraProp 생성
+ 
+		function Super(){}
+		Super.prototype = new Ultra(); // Ultra의 객체 원형 prototype반환해서 (ultraProp 있음) Super의 prototype에 넣어줌
+ 
+		function Sub(){}
+		Sub.prototype = new Super(); // Super의 객체 원형 prototype 반환해서 Sub.prototype에 넣어줌
+ 
+		var o = new Sub(); // 결론적으로 모든 객체원형이 저장되어있는 Sub객체를 반환해서 o에 넣어줌ㄴ
+		document.write(o.ultraProp+"</br>"); // 결과 : true
+
+	</script>
+</body>
+</html>

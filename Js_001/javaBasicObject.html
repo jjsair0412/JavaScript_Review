@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+</head>
+<body>
+	<script type="text/javascript">
+		// Object.keys()
+		// 얘는 어떤 객체가 있을 때, 해당 객체가 갖고있는 key값들을 return해주는 메서드이다.
+		var arr = ["a","b","c"];
+		document.write('Object.keys(arr) : '+Object.keys(arr)+"</br>");	// 결과 : Object.keys(arr) : 0,1,2
+
+		var o = {name : "jinsong", age : 25, city : "seoul"};
+		document.write('Object.keys(arr) : '+Object.keys(o)+"</br>"); // 결과 : Object.keys(arr) : name,age,city
+
+
+		// Object.prototype.toString() 
+		// 객체가 담고잇는 값들을 출력해준다.
+		// 얘는 위에 keys()와 다르게 toString은 prototype에 소속된 메서드이다.
+		// 이게 무슨말이냐면, 생성자 함수를 이용해 Object를 만들어준다.
+		// 따라서 new키워드를 사용해서 새로운 Object prototype을 복제한 새로운 객체를 생성하고, 해당 객체의 메서드로서 사용해야한다.
+
+		var o = new Object();
+		document.write('o.toString() : '+o.toString()+"</br>");
+
+		// 그런데 Object객체는 모든 객체들의 부모기 때문에, Array또한 Obejct객체를 부모로 하고 있어서 toString을 사용할 수 있는것이다.
+		var a = new Array(1,2,3);
+		document.write('a.toString() : '+a.toString+"</br>");
+
+
+		// prototype이 있다면 new키워드를 사용한 생성자를 통해 만들어진 객체를 통해서 사용할 수 있는거고
+		// 없다면 해당 함수이름 자체를 통해 사용하는것이다.
+
+
+		//-----------------------------------------------------------------------
+		// object 객체의 확장
+		Object.prototype.contain = function(item){
+			for(var name in this){
+				// 여기 this는 매서드가 소속되어잇는 객체를 의미한다.
+				if(this[name]===item){
+					return true;
+				}
+			}
+			return false;
+		}
+
+		var o = {'name':'jinsong', 'city': 'seoul'};
+		document.write(o.contain('jinsong')+"</br>");
+		var a = ['jinsong','lezzche','grapittie'];
+		document.write(a.contain('lezche')+"</br>");
+	</script>
+
+</body>
+</html>
