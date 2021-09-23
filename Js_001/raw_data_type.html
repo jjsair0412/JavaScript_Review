@@ -6,10 +6,56 @@
 </head>
 <body>
 	<script type="text/javascript">
+		// 원시데이터일 경우
 		var a = 1;
-		var b = a; // b에 a값을 대입한다.
-		b = 2; // b에 2를 대입한다.
-		document.write(a="</br>"); // 결과 : 1
+		var b = a;
+		b = 2;
+		console.log(a); // 1
+		// 원시데이터일 경우, a와 b는 다른 메모리를 가지고있기 때문에,
+		// b를 변경시킨다 하더라도 a공간에있는 값은 변경되지 않는다.
+
+
+		// 객체일 경우
+		var a = {'id' : 1};
+		var b = a;
+		b.id = 2;
+		console.log(a.id); // 결과 : 2
+		// b에 담겨있는 프로퍼티값을 변경한다면, a에 있는 객체의 프로퍼티가 변경되는것과 마찬가지 이다.
+		// 왜냐면 a객체 {'id' : 1}이라는 메모리공간을 a가 가르키고있는것이기 때문이다.
+		// b에 a를 대입한다는것은 , b가 a객체를 같이 가르킨다는것이 된다.
+	
+
+		var a = 1;
+		function func(b){
+			b = 2;
+		}
+		func(a); // b=a 라는 로직과 동일하다.
+		console.log(a); // 결과 : 1
+		// 위의 원시데이터일 경우와 동일한 맥락이다.
+		// 함수로 값을 복제한다고 하더라도, 다른 메모리공간에 있기 때문에 변화하지 않는다.
+
+
+		var a = {'id':1};
+		function func(b){
+			b = {'id':2};
+		}
+		func(a); // b=a 라는 로직과 동일하다.
+		console.log(a.id); // 결과 : 1
+		// b와 a는 똑같은 객체를 가르키고있지만.
+		// function 내부에서 b에 새로운객체를 생성했기 때문에 b와 a사이의 연결이 끊기고
+		// b는 새로운 객체인 {'id' : 2}를 가르키게 된다.
+		// 그래서 a.id가 1인것이다.
+
+
+		var a = {'id' : 1};
+		function func(b){
+			return b.id = 2;
+		}
+		func(a);
+		console.log(a.id); // 결과 : 2
+		// 함수안에서 b에 id값을 2로 변경시켜주고있기 때문에
+		// a.id값이 2로 나오게된것이다. 
+
 	</script>
 </body>
 </html>

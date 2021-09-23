@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+</head>
+<body>
+	<script type="text/javascript">
+		function first(){ // 호출스택
+			second();
+			console.log('첫번째');
+		}
+		function second() {
+			third();
+			console.log('두번째');
+		}
+		function third(){
+			console.log('세번째');
+		}
+		first(); //결과 : 세번째 두번째 첫번째
+
+
+		function run(){ // 이벤트 루프
+			console.log('3초후  실행');
+		}
+		console.log('시작');
+		setTimeout(run,3000); // 비동기함수이다. 백그라운드에 이벤트를 보내준다.
+		console.log('끝');
+		// 결과 : 시작 끝 3초후 실행
+		// 이렇게 결과가 나오는 이유는 , 이벤트루프로 설명할 수 있다.
+
+	</script>
+
+</body>
+</html>
